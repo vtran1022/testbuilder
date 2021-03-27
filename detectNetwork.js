@@ -104,5 +104,3 @@ var detectNetwork = function(cardNumber) {
     return;
   }
 };
-
-
