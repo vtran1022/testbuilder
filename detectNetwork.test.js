@@ -192,3 +192,90 @@ describe('Maestro', function() {
     })(maePrefix[i]);
   }
 });
+
+describe('China UnionPay', function() {
+  var expect = chai.expect;
+
+  for (var prefix = 622126; prefix <= 622925; prefix++) {
+    (function(currentPrefix) {
+      it('has a prefix of ' + currentPrefix + ' and a length of 16', function() {
+        expect(detectNetwork(currentPrefix + '1111111111')).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 17', function() {
+        expect(detectNetwork(currentPrefix + '11111111111')).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 18', function() {
+        expect(detectNetwork(currentPrefix + '11111111111')).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 19', function() {
+        expect(detectNetwork(currentPrefix + '1111111111111')).to.equal('China UnionPay');
+      });
+    })(prefix);
+  }
+  for (var prefix = 624; prefix <= 626; prefix++) {
+    (function(currentPrefix) {
+      it('has a prefix of ' + currentPrefix + ' and a length of 16', function() {
+        expect(detectNetwork(currentPrefix + '1111111111111')).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 17', function() {
+        expect(detectNetwork(currentPrefix + '11111111111111')).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 18', function() {
+        expect(detectNetwork(currentPrefix + '111111111111111')).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 19', function() {
+        expect(detectNetwork(currentPrefix + '1111111111111111')).to.equal('China UnionPay');
+      });
+    })(prefix);
+  }
+  for (var prefix = 6282; prefix <= 6288; prefix++) {
+    (function(currentPrefix) {
+      it('has a prefix of ' + currentPrefix + ' and a length of 16', function() {
+        expect(detectNetwork(currentPrefix + '111111111111')).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 17', function() {
+        expect(detectNetwork(currentPrefix + '1111111111111')).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 18', function() {
+        expect(detectNetwork(currentPrefix + '11111111111111')).to.equal('China UnionPay');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 19', function() {
+        expect(detectNetwork(currentPrefix + '111111111111111')).to.equal('China UnionPay');
+      });
+    })(prefix);
+  }
+});
+
+describe('Switch', function() {
+  // Write full test coverage for the Maestro card
+  var expect = chai.expect;
+
+  var switchPrefixOne = ['4903', '4905', '4911', '4936', '6333', '6759'];
+  for (var i = 0; i < switchPrefixOne.length; i++) {
+    (function(currentPrefix) {
+      it('has a prefix of ' + currentPrefix + ' and a length of 16', function() {
+        expect(detectNetwork(currentPrefix + '111111111111')).to.equal('Switch');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 18', function() {
+        expect(detectNetwork(currentPrefix + '11111111111111')).to.equal('Switch');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 19', function() {
+        expect(detectNetwork(currentPrefix + '111111111111111')).to.equal('Switch');
+      });
+    })(switchPrefixOne[i]);
+  }
+  var switchPrefixTwo = ['564182', '633110'];
+  for (var j = 0; j < switchPrefixTwo.length; j++) {
+    (function(currentPrefix) {
+      it('has a prefix of ' + currentPrefix + ' and a length of 16', function() {
+        expect(detectNetwork(currentPrefix + '1111111111')).to.equal('Switch');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 18', function() {
+        expect(detectNetwork(currentPrefix + '111111111111')).to.equal('Switch');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 19', function() {
+        expect(detectNetwork(currentPrefix + '1111111111111')).to.equal('Switch');
+      });
+    })(switchPrefixTwo[j]);
+  }
+});
