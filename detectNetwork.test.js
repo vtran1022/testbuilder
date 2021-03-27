@@ -162,7 +162,7 @@ describe('Maestro', function() {
   // Write full test coverage for the Maestro card
   var expect = chai.expect;
 
-  var maePrefix = [5018, 5020, 5038, 6304];
+  var maePrefix = ['5018', '5020', '5038', '6304'];
   for (var i = 0; i < maePrefix.length; i++) {
     (function(currentPrefix) {
       it('has a prefix of ' + currentPrefix + ' and a length of 12', function() {
@@ -172,19 +172,19 @@ describe('Maestro', function() {
         expect(detectNetwork(currentPrefix + '111111111')).to.equal('Maestro');
       });
       it('has a prefix of ' + currentPrefix + ' and a length of 14', function() {
-        expect(detectNetwork(currentPrefix + '111111111')).to.equal('Maestro');
+        expect(detectNetwork(currentPrefix + '1111111111')).to.equal('Maestro');
       });
       it('has a prefix of ' + currentPrefix + ' and a length of 15', function() {
         expect(detectNetwork(currentPrefix + '11111111111')).to.equal('Maestro');
       });
       it('has a prefix of ' + currentPrefix + ' and a length of 16', function() {
-        expect(detectNetwork(currentPrefix + '11111111111')).to.equal('Maestro');
+        expect(detectNetwork(currentPrefix + '111111111111')).to.equal('Maestro');
       });
       it('has a prefix of ' + currentPrefix + ' and a length of 17', function() {
         expect(detectNetwork(currentPrefix + '1111111111111')).to.equal('Maestro');
       });
       it('has a prefix of ' + currentPrefix + ' and a length of 18', function() {
-        expect(detectNetwork(currentPrefix + '1111111111111')).to.equal('Maestro');
+        expect(detectNetwork(currentPrefix + '11111111111111')).to.equal('Maestro');
       });
       it('has a prefix of ' + currentPrefix + ' and a length of 19', function() {
         expect(detectNetwork(currentPrefix + '111111111111111')).to.equal('Maestro');

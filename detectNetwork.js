@@ -23,36 +23,81 @@ var detectNetwork = function(cardNumber) {
 
   var cardLength = cardNumber.length;
   var firstIndex = cardNumber[0];
-  var secondIndex = cardNumber[1];
 
-  if ((cardLength >= 12 && cardLength <= 19) && firstIndex === '5') {
-    if (secondIndex >= '1' && secondIndex <= '5') {
-      return 'MasterCard';
-    } else {
-      var maeRange = ['5018', '5020', '5038'];
-      for (var i = 0; i < maeRange.length; i++) {
-        if (cardNumber.indexOf(maeRange[i])) {
-          return 'Maestro';
+  if ((cardLength >= 12 && cardLength <= 19)) {
+    var maestroPrefixes = ['5018', '5020', '5038', '6304'];
+    for (var i = 0; i < maestroPrefixes.length; i++) {
+      if (cardNumber.indexOf(maestroPrefixes[i]) === 0) {
+        return 'Maestro';
+      }
+    }
+    if (cardLength >= 16 && cardLength <= 19) {
+      for (var chinaPf = 622126; chinaPf <= 622925; chinaPf++) {
+        var cardSubstr = Number(cardNumber.substring(0, 6));
+        if (cardSubstr === chinaPf) {
+          return 'China UnionPay';
+        }
+      }
+      for (var secChinaPf = 6282; secChinaPf <= 6288; secChinaPf++) {
+        var secSubstr = Number(cardNumber.substring(0, 4));
+        if (secSubstr === secChinaPf) {
+          return 'China UnionPay';
+        }
+      }
+      for (var thirdChinaPf = 624; thirdChinaPf <= 626; thirdChinaPf++) {
+        var thirdSubstr = Number(cardNumber.substring(0, 3));
+        if (thirdSubstr === thirdChinaPf) {
+          return 'China UnionPay';
+        }
+      }
+      if (cardLength === 16 || 19) {
+        for (var discoverPf = 644; discoverPf <= 649; discoverPf++) {
+          var discoverSubstr = Number(cardNumber.substring(0, 3));
+          if (discoverSubstr === discoverPf) {
+            return 'Discover';
+          }
+        }
+        var discoverOtherPf = ['6011', '65'];
+        for (var j = 0; j < discoverOtherPf.length; j++) {
+          if (cardNumber.indexOf(discoverOtherPf[j]) === 0) {
+            return 'Discover';
+          }
+        }
+      }
+      if (cardLength === 16 || 18 || 19) {
+        var switchPrefixes = ['4903', '4905', '4911', '4936', '564182', '633110', '6333', '6759'];
+        for (var k = 0; k < switchPrefixes.length; k++) {
+          if (cardNumber.indexOf(switchPrefixes[k]) === 0) {
+            return 'Switch';
+          }
+        }
+      }
+      if (cardLength === 16) {
+        for (var mastercardPf = 51; mastercardPf <= 55; mastercardPf++) {
+          var mastercardSubstr = Number(cardNumber.substring(0, 2));
+          if (mastercardSubstr === mastercardPf) {
+            return 'MasterCard';
+          }
         }
       }
     }
-  } else if ((cardLength >= 12 && cardLength <= 19) && firstIndex === '6' && secondIndex === '3') {
-    return 'Maestro';
-  } else if (cardLength === 14 && firstIndex === '3') {
-    if (secondIndex === '8' || secondIndex === '9') {
-      return 'Diner\'s Club';
+    if ((cardLength === 13 || 16 || 19) && firstIndex === '4') {
+      return 'Visa';
     }
-  } else if (cardLength === 15 && firstIndex === '3') {
-    if (secondIndex === '4' || secondIndex === '7') {
-      return 'American Express';
+    if (cardLength === 15) {
+      var americanexpPrefixes = ['34', '37'];
+      for (var l = 0; l < americanexpPrefixes.length; l++) {
+        if (cardNumber.indexOf(americanexpPrefixes[l]) === 0) {
+          return 'American Express';
+        }
+      }
     }
-  } else if ((cardLength === 13 || cardLength === 19 || cardLength === 16) && firstIndex === '4') {
-    return 'Visa';
-  } else if ((cardLength === 16 || cardLength === 19) && firstIndex === '6') {
-    var disRange = ['644', '645', '646', '647', '648', '649', '6011', '65'];
-    for (var l = 0; l < disRange.length; l++) {
-      if (cardNumber.indexOf(disRange[l]) > -1) {
-        return 'Discover';
+    if (cardLength === 14) {
+      var dinersClubPrefixes = ['38', '39'];
+      for (var m = 0; m < dinersClubPrefixes.length; m++) {
+        if (cardNumber.indexOf(dinersClubPrefixes[m]) === 0) {
+          return 'Diner\'s Club';
+        }
       }
     }
   } else {
