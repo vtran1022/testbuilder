@@ -50,7 +50,7 @@ var detectNetwork = function(cardNumber) {
           return 'China UnionPay';
         }
       }
-      if (cardLength === 16 || 19) {
+      if (cardLength === 16 || cardLength === 19) {
         for (var discoverPf = 644; discoverPf <= 649; discoverPf++) {
           var discoverSubstr = Number(cardNumber.substring(0, 3));
           if (discoverSubstr === discoverPf) {
@@ -64,7 +64,7 @@ var detectNetwork = function(cardNumber) {
           }
         }
       }
-      if (cardLength === 16 || 18 || 19) {
+      if (cardLength === 16 || cardLength === 18 || cardLength === 19) {
         var switchPrefixes = ['4903', '4905', '4911', '4936', '564182', '633110', '6333', '6759'];
         for (var k = 0; k < switchPrefixes.length; k++) {
           if (cardNumber.indexOf(switchPrefixes[k]) === 0) {
@@ -81,7 +81,7 @@ var detectNetwork = function(cardNumber) {
         }
       }
     }
-    if ((cardLength === 13 || 16 || 19) && firstIndex === '4') {
+    if ((cardLength === 13 || cardLength === 16 || cardLength === 19) && firstIndex === '4') {
       return 'Visa';
     }
     if (cardLength === 15) {
