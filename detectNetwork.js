@@ -11,49 +11,48 @@
 
 var detectNetwork = function(cardNumber) {
   // Note: `cardNumber` will always be a string
+
   // The Diner's Club network always starts with a 38 or 39 and is 14 digits long
   // The American Express network always starts with a 34 or 37 and is 15 digits long
 
-  // Once you've read this, go ahead and try to implement this function, then return to the console.
-  // check cardNumber length first, if 14, do iteration for Diner's club
-  // if length=15, then do iteration for American Express
-    // diner's club iteration - iterate over cardNumber, check first two chars w/ Number func
-      // if values equal 38 or 39, then return 'Diner's Club'
-    // american express iteration - iterate over cardNumber, check first two chars w/ Number func
-      // if values equal 34 or 37, then return 'American Express
-  // if length=13 or 19, iterate, check if first char === 4, return 'Visa' if so
-  // if length=16, iterate, check if first char === 4, return 'Visa'
-    // else check firstchar = 5, secondchar equals ~[1,2,3,4,5], return 'MasterCard'
-  // if none of the lengths, return
+  // Visa card has prefix of 4 and a length of 13, 16, or 19
+  // MasterCard has a prefix of 51-55 and a length of 16
+
+ // Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
+ // Maestro always has a prefix of 5018, 5020, 5038, or 6304, and a length of 12-19.
 
   var cardLength = cardNumber.length;
-  if (cardLength === 14) {
-    for (var i = 0; i < cardLength; i++) {
-      var secEle = Number(cardNumber[1]);
-      if (Number(cardNumber[0]) === 3 && (secEle === 8 || secEle === 9)) {
-        return 'Diner\'s Club';
+  var firstIndex = cardNumber[0];
+  var secondIndex = cardNumber[1];
+
+  if ((cardLength >= 12 && cardLength <= 19) && firstIndex === '5') {
+    if (secondIndex >= '1' && secondIndex <= '5') {
+      return 'MasterCard';
+    } else {
+      var maeRange = ['5018', '5020', '5038'];
+      for (var i = 0; i < maeRange.length; i++) {
+        if (cardNumber.indexOf(maeRange[i])) {
+          return 'Maestro';
+        }
       }
     }
-  } else if (cardLength === 15) {
-    for (var i = 0; i < cardLength; i++) {
-      var secChar = Number(cardNumber[1]);
-      if (Number(cardNumber[0]) === 3 && (secChar === 4 || secChar === 7)) {
-        return 'American Express';
-      }
+  } else if ((cardLength >= 12 && cardLength <= 19) && firstIndex === '6' && secondIndex === '3') {
+    return 'Maestro';
+  } else if (cardLength === 14 && firstIndex === '3') {
+    if (secondIndex === '8' || secondIndex === '9') {
+      return 'Diner\'s Club';
     }
-  } else if (cardLength === 13 || cardLength === 19) {
-    for (var i = 0; i < cardLength; i++) {
-      if (Number(cardNumber[0]) === 4) {
-        return 'Visa';
-      }
+  } else if (cardLength === 15 && firstIndex === '3') {
+    if (secondIndex === '4' || secondIndex === '7') {
+      return 'American Express';
     }
-  } else if (cardLength === 16) {
-    for (var i = 0; i < cardLength; i++) {
-      var mcEle = Number(cardNumber[1]);
-      if (Number(cardNumber[0]) === 4) {
-        return 'Visa';
-      } else if (Number(cardNumber[0]) === 5 && (mcEle >= 1 && mcEle <= 5)) {
-        return 'MasterCard';
+  } else if ((cardLength === 13 || cardLength === 19 || cardLength === 16) && firstIndex === '4') {
+    return 'Visa';
+  } else if ((cardLength === 16 || cardLength === 19) && firstIndex === '6') {
+    var disRange = ['644', '645', '646', '647', '648', '649', '6011', '65'];
+    for (var l = 0; l < disRange.length; l++) {
+      if (cardNumber.indexOf(disRange[l]) > -1) {
+        return 'Discover';
       }
     }
   } else {
