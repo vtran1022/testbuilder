@@ -133,47 +133,22 @@ describe('Discover', function() {
   // Implement these tests (and others) and make them pass!
   var expect = chai.expect;
 
+  for (var prefix = 644; prefix <= 649; prefix++) {
+    (function(currentPrefix) {
+      it('has a prefix of ' + currentPrefix + ' and a length of 16', function() {
+        expect(detectNetwork(currentPrefix + '1111111111117')).to.equal('Discover');
+      });
+      it('has a prefix of ' + currentPrefix + ' and a length of 19', function() {
+        expect(detectNetwork(currentPrefix + '1111111111117111')).to.equal('Discover');
+      });
+    })(prefix);
+  }
+
   it('has a prefix of 6011 and a length of 16', function() {
     expect(detectNetwork('6011111111111117')).to.equal('Discover');
   });
   it('has a prefix of 6011 and a length of 19', function() {
     expect(detectNetwork('6011111111111117777')).to.equal('Discover');
-  });
-  it('has a prefix of 644 and a length of 16', function() {
-    expect(detectNetwork('6441111111111117')).to.equal('Discover');
-  });
-  it('has a prefix of 644 and a length of 19', function() {
-    expect(detectNetwork('6441111111111117111')).to.equal('Discover');
-  });
-  it('has a prefix of 645 and a length of 16', function() {
-    expect(detectNetwork('6451111111111117')).to.equal('Discover');
-  });
-  it('has a prefix of 645 and a length of 19', function() {
-    expect(detectNetwork('6451111111111117111')).to.equal('Discover');
-  });
-  it('has a prefix of 646 and a length of 16', function() {
-    expect(detectNetwork('6461111111111117')).to.equal('Discover');
-  });
-  it('has a prefix of 646 and a length of 19', function() {
-    expect(detectNetwork('6461111111111117111')).to.equal('Discover');
-  });
-  it('has a prefix of 647 and a length of 16', function() {
-    expect(detectNetwork('6471111111111117')).to.equal('Discover');
-  });
-  it('has a prefix of 647 and a length of 19', function() {
-    expect(detectNetwork('6471111111111117111')).to.equal('Discover');
-  });
-  it('has a prefix of 648 and a length of 16', function() {
-    expect(detectNetwork('6481111111111117')).to.equal('Discover');
-  });
-  it('has a prefix of 648 and a length of 19', function() {
-    expect(detectNetwork('6481111111111117111')).to.equal('Discover');
-  });
-  it('has a prefix of 649 and a length of 16', function() {
-    expect(detectNetwork('6491111111111117')).to.equal('Discover');
-  });
-  it('has a prefix of 649 and a length of 19', function() {
-    expect(detectNetwork('6491111111111117111')).to.equal('Discover');
   });
   it('has a prefix of 65 and a length of 16', function() {
     expect(detectNetwork('6591111111111117')).to.equal('Discover');
